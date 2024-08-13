@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./style.css"
 import propsType  from "prop-types"
+import Axios from 'axios'
 // Images--->
 import clearIcon from "../assets/clear.png";
 import dreselIcon from "../assets/dresel.png";
@@ -50,13 +51,13 @@ const Weather = () => {
     const search = async () => {
         SetLoading(true);
 
-        let url = `https://api.openweathermap.org/data/2.5/weather?
-        q=${text}&
-        appid=7df9f4f32872d56d29ad8fec8d2470aa&
-        units=Metric`;
+        
 
         try{
-            let res = await fetch(url);
+            let res = await Axios.get(`https://api.openweathermap.org/data/2.5/weather?
+        q=${text}&
+        appid=7df9f4f32872d56d29ad8fec8d2470aa&
+        units=Metric`);
             let data = await res.json();
             // console.log(data);
             if(data.cod === "404"){
