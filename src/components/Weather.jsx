@@ -50,17 +50,14 @@ const Weather = () => {
 
     const search = async () => {
         SetLoading(true);
-
-        
-
+        const apikey = "7ae6f15fdb5c40a4fb854e58ba10586e";
+        const url = `https://api.openweathermap.org/data/2.5/weather?q=${text}&appid=${apikey}&units=Metric`;
+       
         try{
-            let res = await Axios.get(`https://api.openweathermap.org/data/2.5/weather?
-        q=${text}&
-        appid=7df9f4f32872d56d29ad8fec8d2470aa&
-        units=Metric`);
-            let data = await res.json();
-            // console.log(data);
-            if(data.cod === "404"){
+            const res = await fetch(url);
+            var data = await res.json();
+            console.log(data);
+            if(data.code === "404"){
                 console.error("city not found");
                 SetCityNotFound(true);
                 SetLoading(false);
@@ -82,6 +79,7 @@ const Weather = () => {
             SetError("An error occurrred while fetching weather data.");
         }finally{
             SetLoading(false);
+            SetCityNotFound(false);
         }
     };
 
